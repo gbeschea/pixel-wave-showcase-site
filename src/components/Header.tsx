@@ -38,7 +38,7 @@ const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex">
-            <Button variant="outline" className="border-white text-white hover:bg-white hover:text-secondary">
+            <Button variant="outline" className="border-white bg-white text-secondary hover:bg-white/10 hover:text-white">
               Get Started
             </Button>
           </div>
@@ -71,7 +71,7 @@ const Header = () => {
                 </a>
               ))}
               <div className="px-3 py-2">
-                <Button variant="outline" className="w-full border-white text-white hover:bg-white hover:text-secondary">
+                <Button variant="outline" className="w-full border-white bg-white text-secondary hover:bg-white/10 hover:text-white">
                   Get Started
                 </Button>
               </div>
