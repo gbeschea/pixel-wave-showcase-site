@@ -19,7 +19,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <h1 className="text-2xl font-bold text-white">
-              Pixel<span className="text-blue-400">Media</span>Wave
+              Pixel<span className="text-blue-400">Wave</span>
             </h1>
           </div>
 
@@ -38,7 +38,11 @@ const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex">
-            <Button variant="outline" className="border-white bg-white text-secondary hover:bg-white/10 hover:text-white">
+            <Button 
+              variant="outline" 
+              className="border-white bg-white text-secondary hover:bg-white/10 hover:text-white"
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               Get Started
             </Button>
           </div>
@@ -71,7 +75,14 @@ const Header = () => {
                 </a>
               ))}
               <div className="px-3 py-2">
-                <Button variant="outline" className="w-full border-white bg-white text-secondary hover:bg-white/10 hover:text-white">
+                <Button 
+                  variant="outline" 
+                  className="w-full border-white bg-white text-secondary hover:bg-white/10 hover:text-white"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
                   Get Started
                 </Button>
               </div>

@@ -33,10 +33,10 @@ const About = () => {
           {/* Left Content */}
           <div>
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              About <span className="text-primary">Pixel Media Wave</span>
+              About <span className="text-primary">Pixel Wave</span>
             </h2>
             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-              Founded by digital marketing veterans, Pixel Media Wave emerged from a simple belief: 
+              Founded by digital marketing veterans, Pixel Wave emerged from a simple belief: 
               every ecommerce business deserves marketing that actually works. We combine creative 
               storytelling with data-driven precision to create campaigns that don't just look good—they deliver results.
             </p>

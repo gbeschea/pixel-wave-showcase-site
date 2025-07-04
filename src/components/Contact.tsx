@@ -8,19 +8,19 @@ const contactInfo = [
   {
     icon: Mail,
     title: "Email",
-    content: "hello@pixelmediawave.com",
+    content: "hello@pixelwaveagency.com",
     description: "Send us an email anytime"
   },
   {
     icon: Phone,
     title: "Phone", 
-    content: "+1 (555) 123-4567",
+    content: "+86 18826289786",
     description: "Mon-Fri from 9am to 6pm"
   },
   {
     icon: MapPin,
     title: "Office",
-    content: "123 Digital Ave, Tech City",
+    content: "2-4 Tai Yau Street, San Po Kong, Hong Kong",
     description: "Visit our creative space"
   },
   {

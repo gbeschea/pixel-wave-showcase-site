@@ -25,7 +25,12 @@ const Hero = () => {
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Button variant="hero" size="lg" className="text-lg px-8 py-4">
+          <Button 
+            variant="hero" 
+            size="lg" 
+            className="text-lg px-8 py-4"
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+          >
             Start Your Growth Journey
           </Button>
           <Button variant="outline" size="lg" className="text-lg px-8 py-4 border-white bg-white text-secondary hover:bg-white/10 hover:text-white">
