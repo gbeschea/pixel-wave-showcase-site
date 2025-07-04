@@ -33,7 +33,12 @@ const Hero = () => {
           >
             Start Your Growth Journey
           </Button>
-          <Button variant="outline" size="lg" className="text-lg px-8 py-4 border-white bg-white text-secondary hover:bg-white/10 hover:text-white">
+          <Button 
+            variant="outline" 
+            size="lg" 
+            className="text-lg px-8 py-4 border-white bg-white text-secondary hover:bg-white/10 hover:text-white"
+            onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+          >
             View Our Work
           </Button>
         </div>

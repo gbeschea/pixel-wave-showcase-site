@@ -45,7 +45,11 @@ const About = () => {
               we've mastered the art and science of digital marketing. From startups to enterprise brands, 
               we've helped businesses across industries ride the digital wave to success.
             </p>
-            <Button variant="hero" size="lg">
+            <Button 
+              variant="hero" 
+              size="lg"
+              onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               Learn More About Our Journey
             </Button>
           </div>
