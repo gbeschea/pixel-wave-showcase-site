@@ -3,6 +3,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
+
+interface ContactFormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  company: string;
+  message: string;
+}
 
 const contactInfo = [
   {
@@ -32,6 +43,43 @@ const contactInfo = [
 ];
 
 const Contact = () => {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors }
+  } = useForm<ContactFormData>();
+
+  const onSubmit = async (data: ContactFormData) => {
+    setIsSubmitting(true);
+    
+    try {
+      // For now, we'll simulate form submission
+      // To actually send emails, you'll need Supabase integration
+      console.log('Form data:', data);
+      
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for your message. We'll get back to you within 24 hours.",
+      });
+      
+      reset();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <section className="py-20 bg-gradient-secondary">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -68,33 +116,77 @@ const Contact = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input 
-                placeholder="First Name" 
-                className="bg-white/10 border-white/20 text-white placeholder:text-gray-300"
-              />
-              <Input 
-                placeholder="Last Name" 
-                className="bg-white/10 border-white/20 text-white placeholder:text-gray-300"
-              />
-            </div>
-            <Input 
-              type="email" 
-              placeholder="Email Address" 
-              className="bg-white/10 border-white/20 text-white placeholder:text-gray-300"
-            />
-            <Input 
-              placeholder="Company Name" 
-              className="bg-white/10 border-white/20 text-white placeholder:text-gray-300"
-            />
-            <Textarea 
-              placeholder="Tell us about your project and goals..." 
-              rows={4}
-              className="bg-white/10 border-white/20 text-white placeholder:text-gray-300"
-            />
-            <Button variant="hero" size="lg" className="w-full">
-              Send Message
-            </Button>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <Input 
+                    {...register("firstName", { required: "First name is required" })}
+                    placeholder="First Name*" 
+                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-300"
+                  />
+                  {errors.firstName && (
+                    <p className="text-red-400 text-sm mt-1">{errors.firstName.message}</p>
+                  )}
+                </div>
+                <div>
+                  <Input 
+                    {...register("lastName", { required: "Last name is required" })}
+                    placeholder="Last Name*" 
+                    className="bg-white/10 border-white/20 text-white placeholder:text-gray-300"
+                  />
+                  {errors.lastName && (
+                    <p className="text-red-400 text-sm mt-1">{errors.lastName.message}</p>
+                  )}
+                </div>
+              </div>
+              <div>
+                <Input 
+                  {...register("email", { 
+                    required: "Email is required",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: "Invalid email address"
+                    }
+                  })}
+                  type="email" 
+                  placeholder="Email Address*" 
+                  className="bg-white/10 border-white/20 text-white placeholder:text-gray-300"
+                />
+                {errors.email && (
+                  <p className="text-red-400 text-sm mt-1">{errors.email.message}</p>
+                )}
+              </div>
+              <div>
+                <Input 
+                  {...register("company", { required: "Company name is required" })}
+                  placeholder="Company Name*" 
+                  className="bg-white/10 border-white/20 text-white placeholder:text-gray-300"
+                />
+                {errors.company && (
+                  <p className="text-red-400 text-sm mt-1">{errors.company.message}</p>
+                )}
+              </div>
+              <div>
+                <Textarea 
+                  {...register("message", { required: "Message is required" })}
+                  placeholder="Tell us about your project and goals...*" 
+                  rows={4}
+                  className="bg-white/10 border-white/20 text-white placeholder:text-gray-300"
+                />
+                {errors.message && (
+                  <p className="text-red-400 text-sm mt-1">{errors.message.message}</p>
+                )}
+              </div>
+              <Button 
+                type="submit" 
+                variant="hero" 
+                size="lg" 
+                className="w-full"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Sending..." : "Send Message"}
+              </Button>
+            </form>
           </CardContent>
         </Card>
       </div>
