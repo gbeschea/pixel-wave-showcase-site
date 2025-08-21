@@ -1,9 +1,39 @@
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isOverBrightBg, setIsOverBrightBg] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      // Detect if we're over bright sections (services, about sections typically have bright backgrounds)
+      const servicesSection = document.getElementById('services');
+      const aboutSection = document.getElementById('about');
+      
+      if (servicesSection && aboutSection) {
+        const servicesTop = servicesSection.offsetTop;
+        const servicesBottom = servicesTop + servicesSection.offsetHeight;
+        const aboutTop = aboutSection.offsetTop;
+        const aboutBottom = aboutTop + aboutSection.offsetHeight;
+        
+        const headerHeight = 64; // Account for header height
+        const currentPosition = scrollY + headerHeight;
+        
+        const isOverBright = (currentPosition >= servicesTop && currentPosition <= servicesBottom) ||
+                           (currentPosition >= aboutTop && currentPosition <= aboutBottom);
+        
+        setIsOverBrightBg(isOverBright);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check initial position
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const navItems = [
     { label: "Home", href: "#home" },
@@ -29,7 +59,11 @@ const Header = () => {
               <a
                 key={item.label}
                 href={item.href}
-                className="text-white hover:text-blue-400 transition-colors font-medium"
+                className={`transition-colors font-medium ${
+                  isOverBrightBg 
+                    ? 'text-[hsl(var(--nav-bright-bg))] hover:text-blue-400' 
+                    : 'text-white hover:text-blue-400'
+                }`}
               >
                 {item.label}
               </a>
@@ -68,7 +102,11 @@ const Header = () => {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="block px-3 py-2 text-white hover:text-blue-400 transition-colors font-medium"
+                  className={`block px-3 py-2 transition-colors font-medium ${
+                    isOverBrightBg 
+                      ? 'text-[hsl(var(--nav-bright-bg))] hover:text-blue-400' 
+                      : 'text-white hover:text-blue-400'
+                  }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
